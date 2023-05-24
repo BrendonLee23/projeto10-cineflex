@@ -1,19 +1,23 @@
 import styled from "styled-components"
+// import axios from "axios"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomePage from "./pages/HomePage/HomePage"
-// import SeatsPage from "./pages/SeatsPage/SeatsPage"
-// import SessionsPage from "./pages/SessionsPage/SessionsPage"
-// import SuccessPage from "./pages/SuccessPage/SuccessPage"
+import SeatsPage from "./pages/SeatsPage/SeatsPage"
+import SessionsPage from "./pages/SessionsPage/SessionsPage"
+import SuccessPage from "./pages/SuccessPage/SuccessPage"
 
 export default function App() {
     return (
-        <>
+        <BrowserRouter>
             <NavContainer>CINEFLEX</NavContainer>
 
-            <HomePage />
-            {/* <SeatsPage /> */}
-            {/* <SessionsPage /> */}
-            {/* <SuccessPage /> */}
-        </>
+            <Routes>
+                <Route path='/' element={<HomePage/>}/>
+                <Route path='/assentos' element={<SeatsPage />}/>
+                <Route path='/sessoes' element={<SessionsPage />}/>
+                <Route path='/sucesso' element={<SuccessPage />}/>
+            </Routes>
+        </BrowserRouter>
     )
 }
 
