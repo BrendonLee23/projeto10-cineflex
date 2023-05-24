@@ -1,35 +1,39 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Poster from "./Poster";
 
 export default function HomePage() {
+
+    const [poster, setPoster] = useState([]);
+
+
+    useEffect(() => {
+
+        const URL = "https://mock-api.driven.com.br/api/v8/cineflex/movies"
+        const promise = axios.get(URL);
+
+        promise.then((resposta) => {
+            console.log(resposta.data);
+            setPoster(resposta.data);
+        });
+
+        promise.catch((erro) => {
+            console.log(erro.response.data);
+        });
+
+    }, [] )
+
+    if (poster.length === 0) {
+        return (<div> Carregando..... </div>);
+    }
+
     return (
         <PageContainer>
             Selecione o filme
 
             <ListContainer>
-                <MovieContainer>
-                    <Link to="/sessoes">
-                        <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
-                    </Link>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <Link to="/sessoes">
-                        <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
-                    </Link>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <Link to="/sessoes">
-                        <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
-                    </Link>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <Link to="/sessoes">
-                        <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
-                    </Link>
-                </MovieContainer>
+                {poster.map((p) => <Poster key={p.id} imagem={p.posterURL} />)}
             </ListContainer>
 
         </PageContainer>
@@ -53,18 +57,4 @@ const ListContainer = styled.div`
     flex-wrap: wrap;
     flex-direction: row;
     padding: 10px;
-`
-const MovieContainer = styled.div`
-    width: 145px;
-    height: 210px;
-    box-shadow: 0px 2px 4px 2px #0000001A;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    img {
-        width: 130px;
-        height: 190px;
-    }
 `
