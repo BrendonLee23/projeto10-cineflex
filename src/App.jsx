@@ -8,16 +8,17 @@ import SuccessPage from "./pages/SuccessPage/SuccessPage"
 
 export default function App() {
 
+
+
     axios.defaults.headers.common['Authorization'] = 'oMz0jQG4QLm9kV0dmew7avos'
 
     return (
         <BrowserRouter>
             <NavContainer>CINEFLEX</NavContainer>
-
             <Routes>
                 <Route path='/' element={<HomePage/>}/>
-                <Route path='/assentos' element={<SeatsPage />}/>
-                <Route path='/sessoes' element={<SessionsPage />}/>
+                <Route path='/sessoes/:idFilme' element={<SessionsPage/>}/>
+                <Route path='/assentos/:idSessao' element={<SeatsPage />}/>
                 <Route path='/sucesso' element={<SuccessPage />}/>
             </Routes>
         </BrowserRouter>

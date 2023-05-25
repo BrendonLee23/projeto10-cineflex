@@ -1,49 +1,34 @@
-import { Link } from "react-router-dom"
+
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Sessao from "./Sessao";
 
 export default function SessionsPage() {
+
+    const parametros = useParams();
+    console.log(parametros)
+    const [sessao, setSessao] = useState(null);
+
+    useEffect(() => {
+        const URL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${parametros.idFilme}/showtimes`
+        const promise = axios.get(URL);
+        promise.then((resposta) => {
+            setSessao(resposta.data);
+            console.log(resposta.data)
+        });
+        promise.catch((erro) => {
+            console.log(erro.response.data);
+        });
+    }, [parametros.idFilme])
 
     return (
         <PageContainer>
             Selecione o horário
-            <div>
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <Link to='/assentos' >
-                            <button>14:00</button>
-                        </Link>
-                        <Link to='/assentos' >
-                            <button>15:00</button>
-                        </Link>
-                    </ButtonsContainer>
-                </SessionContainer>
-
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <Link to='/assentos' >
-                            <button>14:00</button>
-                        </Link>
-                        <Link to='/assentos' >
-                            <button>15:00</button>
-                        </Link>
-                    </ButtonsContainer>
-                </SessionContainer>
-
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <Link to='/assentos' >
-                            <button>14:00</button>
-                        </Link>
-                        <Link to='/assentos' >
-                            <button>15:00</button>
-                        </Link>
-                    </ButtonsContainer>
-                </SessionContainer>
-            </div>
-
+            <>
+                {sessao?.days.map((day) => <Sessao key={day.id} diaSemana={day.weekday} data={day.date} horario={day.showtimes} />)}
+            </>
             <FooterContainer>
                 <div>
                     <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
@@ -52,7 +37,6 @@ export default function SessionsPage() {
                     <p>Tudo em todo lugar ao mesmo tempo</p>
                 </div>
             </FooterContainer>
-
         </PageContainer>
     )
 }
@@ -71,26 +55,6 @@ const PageContainer = styled.div`
         margin-top: 20px;
     }
 `
-const SessionContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-family: 'Roboto';
-    font-size: 20px;
-    color: #293845;
-    padding: 0 20px;
-`
-const ButtonsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 20px 0;
-    button {
-        margin-right: 20px;
-    }
-    a {
-        text-decoration: none;
-    }
-`
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
@@ -101,7 +65,6 @@ const FooterContainer = styled.div`
     font-size: 20px;
     position: fixed;
     bottom: 0;
-
     div:nth-child(1) {
         box-shadow: 0px 2px 4px 2px #0000001A;
         border-radius: 3px;
@@ -116,7 +79,6 @@ const FooterContainer = styled.div`
             padding: 8px;
         }
     }
-
     div:nth-child(2) {
         display: flex;
         flex-direction: column;
@@ -129,3 +91,24 @@ const FooterContainer = styled.div`
         }
     }
 `
+
+// const SessionContainer = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     font-family: 'Roboto';
+//     font-size: 20px;
+//     color: #293845;
+//     padding: 0 20px;
+// `
+// const ButtonsContainer = styled.div`
+//     display: flex;
+//     flex-direction: row;
+//     margin: 20px 0;
+//     button {
+//         margin-right: 20px;
+//     }
+//     a {
+//         text-decoration: none;
+//     }
+// `

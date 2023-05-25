@@ -1,12 +1,13 @@
 import styled from "styled-components"
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import Poster from "./Poster";
 
 export default function HomePage() {
 
-    const [poster, setPoster] = useState([]);
 
+
+    const [poster, setPoster] = useState([]);
 
     useEffect(() => {
 
@@ -14,7 +15,6 @@ export default function HomePage() {
         const promise = axios.get(URL);
 
         promise.then((resposta) => {
-            console.log(resposta.data);
             setPoster(resposta.data);
         });
 
@@ -23,6 +23,7 @@ export default function HomePage() {
         });
 
     }, [] )
+    
 
     if (poster.length === 0) {
         return (<div> Carregando..... </div>);
@@ -33,7 +34,7 @@ export default function HomePage() {
             Selecione o filme
 
             <ListContainer>
-                {poster.map((p) => <Poster key={p.id} imagem={p.posterURL} />)}
+                {poster.map((p) => <Poster key={p.id} poster={poster} imagem={p.posterURL} id={p.id} />)}
             </ListContainer>
 
         </PageContainer>

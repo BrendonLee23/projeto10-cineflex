@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link} from "react-router-dom"
 import styled from "styled-components"
 
 
@@ -8,7 +8,7 @@ export default function Poster(props) {
     return (
         <>
             <MovieContainer>
-                <Link to="/sessoes">
+                <Link to={`/sessoes/${props.id}`}>
                     <img src={props.imagem} alt="poster" />
                 </Link>
             </MovieContainer>
