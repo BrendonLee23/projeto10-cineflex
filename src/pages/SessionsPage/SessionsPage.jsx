@@ -31,10 +31,10 @@ export default function SessionsPage() {
             </>
             <FooterContainer>
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    <img src={sessao?.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
+                    <p>{sessao?.title}</p>
                 </div>
             </FooterContainer>
         </PageContainer>

@@ -64,11 +64,11 @@ export default function SeatsPage() {
 
             <FooterContainer>
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    <img src={assento?.movie.posterURL} alt="poster" />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
-                    <p>Sexta - 14h00</p>
+                    <p>{assento?.movie.title}</p>
+                <p>{assento?.day.weekday} - {assento?.name}</p>
                 </div>
             </FooterContainer>
 
@@ -106,6 +106,7 @@ const FormContainer = styled.div`
     font-size: 18px;
     button {
         align-self: center;
+        cursor: pointer;
     }
     input {
         width: calc(100vw - 60px);

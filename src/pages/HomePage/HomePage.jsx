@@ -16,6 +16,7 @@ export default function HomePage() {
 
         promise.then((resposta) => {
             setPoster(resposta.data);
+            console.log(resposta.data);
         });
 
         promise.catch((erro) => {
@@ -34,7 +35,7 @@ export default function HomePage() {
             Selecione o filme
 
             <ListContainer>
-                {poster.map((p) => <Poster key={p.id} poster={poster} imagem={p.posterURL} id={p.id} />)}
+                {poster.map((p) => <Poster key={p.id} poster={poster} nome={p.title} imagem={p.posterURL} id={p.id} />)}
             </ListContainer>
 
         </PageContainer>

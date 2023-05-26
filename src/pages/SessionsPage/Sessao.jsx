@@ -4,7 +4,6 @@ import styled from "styled-components"
 
 export default function Sessao(props) {
 
-
     return (
         <>
             <SessionContainer>
@@ -33,8 +32,9 @@ const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin: 20px 0;
+    gap: 20px;
     button {
-        margin-right: 20px;
+        cursor: pointer;
     }
     a {
         text-decoration: none;
