@@ -5,10 +5,28 @@ import HomePage from "./pages/HomePage/HomePage"
 import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
+import { useState } from "react"
 
 export default function App() {
 
     axios.defaults.headers.common['Authorization'] = 'oMz0jQG4QLm9kV0dmew7avos'
+    const [idAssentos, setIdAssentos] = useState([])
+
+    function atualizarAssentos(novoId){
+        const newArray = []
+        if(idAssentos.includes(novoId)){
+            idAssentos.forEach((id) => {
+                if(id !== novoId){
+                    newArray.push(id);
+                }
+            }
+        ); setIdAssentos(newArray);
+        console.log(newArray)
+        }else{
+            setIdAssentos([...idAssentos, novoId])
+            console.log([...idAssentos, novoId])
+        }
+    }
 
     return (
         <BrowserRouter>
@@ -16,7 +34,7 @@ export default function App() {
             <Routes>
                 <Route path='/' element={<HomePage/>}/>
                 <Route path='/sessoes/:idFilme' element={<SessionsPage/>}/>
-                <Route path='/assentos/:idSessao' element={<SeatsPage />}/>
+                <Route path='/assentos/:idSessao' element={<SeatsPage idAssentos={idAssentos} setIdAssentos={(id)=>atualizarAssentos(id)} />}/>
                 <Route path='/sucesso' element={<SuccessPage />}/>
             </Routes>
         </BrowserRouter>

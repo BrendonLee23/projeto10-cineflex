@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import styled from "styled-components"
 
 export default function SuccessPage() {
+
+    const info = useLocation().state;
 
     return (
         <PageContainer>
@@ -23,7 +25,7 @@ export default function SuccessPage() {
             <TextContainer>
                 <strong><p>Comprador</p></strong>
                 <p>Nome: Letícia Chijo</p>
-                <p>CPF: 123.456.789-10</p>
+                <p>{info}</p>
             </TextContainer>
 
             <Link to="/">

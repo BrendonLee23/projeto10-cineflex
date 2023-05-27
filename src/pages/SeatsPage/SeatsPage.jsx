@@ -1,15 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import Assento from "./Assento";
 
-export default function SeatsPage() {
+export default function SeatsPage(props) {
 
+    const { idAssentos} = props
+    const navigate = useNavigate();
     const parametros = useParams();
     console.log(parametros)
     const [assento, setAssento] = useState(null);
-
+    const [nome, setNome] = useState('')
+    const [cpf, setCpf] = useState('')
+    
 
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${parametros.idSessao}/seats`
@@ -23,15 +27,36 @@ export default function SeatsPage() {
         });
     }, [parametros.idSessao]);
 
+
+    function finalizarCompra(event) {
+        event.preventDefault();
+        
+        let infos = 
+        {
+            ids: idAssentos,
+            nome: nome,
+            cpf: cpf
+        };
+
+        const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', infos);
+        promise.then(ans => { console.log('O POST DEU CERTO', ans); });
+        promise.catch(erro => console.log('O POST DEU ERRO', erro));
+        navigate("/sucesso", {state: "test"});
+    }
+
+
     return (
         <PageContainer>
             Selecione o(s) assento(s)
             <SeatsContainer>
-                {assento?.seats.map((cadeira) => <Assento 
-                                                        key={cadeira.id} 
-                                                        numero={cadeira.name}
-                                                        vaga={cadeira.isAvailable}
-                                                    />)}
+                {assento?.seats.map((cadeira) => <Assento
+                    key={cadeira.id}
+                    numero={cadeira.name}
+                    vaga={cadeira.isAvailable}
+                    id={cadeira.id} 
+                    idAssentos={idAssentos} 
+                    setIdAssentos={(id)=>props.setIdAssentos(id)}
+                />)}
             </SeatsContainer>
 
             <CaptionContainer>
@@ -49,17 +74,17 @@ export default function SeatsPage() {
                 </CaptionItem>
             </CaptionContainer>
 
-            <FormContainer>
-                Nome do Comprador:
-                <input placeholder="Digite seu nome..." />
+            <FormContainer onSubmit={finalizarCompra} >
+                <label htmlFor="nome" >Nome do Comprador:</label>
+                <input value={nome} onChange={(e) => setNome(e.target.value) } required id="nome" placeholder="Digite seu nome..." />
 
-                CPF do Comprador:
-                <input placeholder="Digite seu CPF..." />
 
-                <Link to="/sucesso" >
-                    <button>Reservar Assento(s)</button>
-                </Link>
-                
+                <label htmlFor="cpf" >CPF do Comprador:</label>
+                <input value={cpf} onChange={(e) => setCpf(e.target.value)} required id="cpf" placeholder="Digite seu CPF..." />
+
+                <button>Reservar Assento(s)</button>
+
+
             </FormContainer>
 
             <FooterContainer>
@@ -68,7 +93,7 @@ export default function SeatsPage() {
                 </div>
                 <div>
                     <p>{assento?.movie.title}</p>
-                <p>{assento?.day.weekday} - {assento?.name}</p>
+                    <p>{assento?.day.weekday} - {assento?.name}</p>
                 </div>
             </FooterContainer>
 
@@ -97,7 +122,7 @@ const SeatsContainer = styled.div`
     justify-content: center;
     margin-top: 20px;
 `
-const FormContainer = styled.div`
+const FormContainer = styled.form`
     width: calc(100vw - 40px); 
     display: flex;
     flex-direction: column;

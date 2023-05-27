@@ -4,17 +4,19 @@ import styled from "styled-components"
 
 export default function Assento(props) {
 
-    // const [selecinado, setSelecionado] = useState(false)
     const [cor, setCor] = useState("#C3CFD9")
     const [borda, setBorda] = useState("#808F9D")
+
 
     function selecionarAssento() {
         if (cor === "#1AAE9E" && borda === "#0E7D71") {
             setCor("#C3CFD9");
             setBorda("#808F9D");
+
         } else {
             setCor("#1AAE9E");
             setBorda("#0E7D71");
+            
         }
     }
 
@@ -25,15 +27,15 @@ export default function Assento(props) {
                     <SeatItemDisable>{props.numero}</SeatItemDisable>
                     :
                     props.vaga === true ?
-                        <SeatItemAvaliable borda={borda} cor={cor} onClick={selecionarAssento} >{props.numero}</SeatItemAvaliable>
+                        <SeatItemAvaliable borda={borda} cor={cor} onClick={() => {props.setIdAssentos(props.id); selecionarAssento()}} >{props.numero}</SeatItemAvaliable>
                         : ""
             }
         </>
-    )
+    );
 }
 
 const SeatItemAvaliable = styled.div`
-    border: 1px solid ${props => props.borda} ;        // Essa cor deve mudar
+    border: 1px solid ${props => props.borda} ; // Essa cor deve mudar
     background-color: ${props => props.cor} ;  // Essa cor deve mudar
     height: 25px;
     width: 25px;
