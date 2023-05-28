@@ -43,8 +43,7 @@ export default function SeatsPage(props) {
     function finalizarCompra(event) {
         event.preventDefault();
         
-        let infos = 
-        {
+        const infos = {
             ids: idAssentos,
             name: nome,
             cpf: cpf

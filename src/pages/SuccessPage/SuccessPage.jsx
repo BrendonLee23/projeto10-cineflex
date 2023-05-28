@@ -28,7 +28,7 @@ export default function SuccessPage(props) {
             <TextContainer data-test="client-info" >
                 <strong><p>Comprador</p></strong>
                 {/* renderiza o nome do comprador */}
-                <p>Nome: {info.nome}</p>
+                <p>Nome: {info.name}</p>
                 {/* renderiza o cpf do comprador */}
                 <p>CPF: {info.cpf}</p>
             </TextContainer>
