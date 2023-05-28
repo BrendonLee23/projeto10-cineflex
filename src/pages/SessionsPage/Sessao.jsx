@@ -10,9 +10,9 @@ export default function Sessao(props) {
         <>
             <SessionContainer data-test="movie-day"> 
                 {props.diaSemana} - {props.date}
-                <ButtonsContainer data-test="showtime" >
+                <ButtonsContainer>
                     {props.horario.map((hora) => <Link  key={hora.id} to={`/assentos/${hora.id}`} >
-                            <button>{hora.name}</button>
+                            <button data-test="showtime"  >{hora.name}</button>
                             </Link>)}
                 </ButtonsContainer>
             </SessionContainer>
