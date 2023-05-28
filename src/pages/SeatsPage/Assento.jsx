@@ -19,13 +19,15 @@ export default function Assento(props) {
         }
     }
 
-
+    function exibeAlerta(){
+        alert("Assento Indisponível!")
+    }
 
     return (
         <>
             {
                 props.vaga === false ?
-                    <SeatItemDisable data-test="seat">{props.numero}</SeatItemDisable>
+                    <SeatItemDisable data-test="seat" onClick={exibeAlerta} >{props.numero}</SeatItemDisable>
                     :
                     props.vaga === true ?
                         <SeatItemAvaliable data-test="seat" borda={borda} cor={cor} onClick={() => {props.setIdAssentos(props.id); props.setNumAssentos(props.numero); selecionarAssento()}} >{props.numero}</SeatItemAvaliable>

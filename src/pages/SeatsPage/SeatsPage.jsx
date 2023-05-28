@@ -37,7 +37,7 @@ export default function SeatsPage(props) {
         promise.catch((erro) => {
             console.log(erro.response.data);
         });
-    }, [data, hora, parametros.idSessao, setData, setHora]);
+    }, [parametros.idSessao]);
 
 
     function finalizarCompra(event) {
@@ -46,7 +46,7 @@ export default function SeatsPage(props) {
         let infos = 
         {
             ids: idAssentos,
-            nome: nome,
+            name: nome,
             cpf: cpf
         };
 
@@ -90,8 +90,8 @@ export default function SeatsPage(props) {
             </CaptionContainer>
 
             <FormContainer onSubmit={finalizarCompra} >
-                <label htmlFor="nome" >Nome do Comprador:</label>
-                <input data-test="client-name" value={nome} onChange={(e) => setNome(e.target.value) } required id="nome" placeholder="Digite seu nome..." />
+                <label htmlFor="name" >Nome do Comprador:</label>
+                <input data-test="client-name" value={nome} onChange={(e) => setNome(e.target.value) } required id="name" placeholder="Digite seu nome..." />
 
 
                 <label htmlFor="cpf" >CPF do Comprador:</label>
