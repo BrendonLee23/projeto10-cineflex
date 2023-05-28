@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Sessao from "./Sessao";
 
-export default function SessionsPage() {
+export default function SessionsPage(props) {
 
+    const {data, setData, hora, setHora, filme, setFilme } = props
     const parametros = useParams();
     console.log(parametros)
     const [sessao, setSessao] = useState(null);
@@ -16,7 +17,11 @@ export default function SessionsPage() {
         const promise = axios.get(URL);
         promise.then((resposta) => {
             setSessao(resposta.data);
-            console.log(resposta.data)
+            console.log(resposta.data.title)
+
+            const novoFilme = [...filme]
+            novoFilme.push(resposta.data.title)
+            setFilme(novoFilme);
         });
         promise.catch((erro) => {
             console.log(erro.response.data);
@@ -27,7 +32,18 @@ export default function SessionsPage() {
         <PageContainer>
             Selecione o horário
             <>
-                {sessao?.days.map((day) => <Sessao key={day.id} diaSemana={day.weekday} data={day.date} horario={day.showtimes} />)}
+                {sessao?.days.map((day) => 
+                
+                <Sessao 
+                    key={day.id} 
+                    data={data} 
+                    setData={setData} 
+                    diaSemana={day.weekday} 
+                    date={day.date} 
+                    horario={day.showtimes} 
+                    hora={hora} 
+                    setHora={setHora}
+                />)}
             </>
             <FooterContainer>
                 <div>

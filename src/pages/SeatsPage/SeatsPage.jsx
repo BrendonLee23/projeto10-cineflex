@@ -3,24 +3,36 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import Assento from "./Assento";
+// import { useLocation } from "react-router-dom";
 
 export default function SeatsPage(props) {
 
-    const { idAssentos} = props
+    
+    const { idAssentos, numAssentos, hora, setHora, data, setData } = props
     const navigate = useNavigate();
+    // const location = useLocation();
     const parametros = useParams();
     console.log(parametros)
     const [assento, setAssento] = useState(null);
     const [nome, setNome] = useState('')
     const [cpf, setCpf] = useState('')
-    
 
     useEffect(() => {
         const URL = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${parametros.idSessao}/seats`
         const promise = axios.get(URL);
         promise.then((resposta) => {
             setAssento(resposta.data);
-            console.log(resposta.data)
+            console.log(resposta.data.day.date)
+
+            const novaData =  [...data]
+            novaData.push(resposta.data.day.date)
+            setData(novaData)
+            console.log(novaData)
+
+            const novaHora = [...hora]
+            novaHora.push(resposta.data.name)
+            setHora(novaHora)
+            console.log(novaHora)
         });
         promise.catch((erro) => {
             console.log(erro.response.data);
@@ -41,7 +53,7 @@ export default function SeatsPage(props) {
         const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', infos);
         promise.then(ans => { console.log('O POST DEU CERTO', ans); });
         promise.catch(erro => console.log('O POST DEU ERRO', erro));
-        navigate("/sucesso", {state: "test"});
+        navigate("/sucesso",{state: infos} );
     }
 
 
@@ -50,12 +62,15 @@ export default function SeatsPage(props) {
             Selecione o(s) assento(s)
             <SeatsContainer>
                 {assento?.seats.map((cadeira) => <Assento
+                    dataFinal={cadeira.date}
                     key={cadeira.id}
                     numero={cadeira.name}
                     vaga={cadeira.isAvailable}
                     id={cadeira.id} 
                     idAssentos={idAssentos} 
                     setIdAssentos={(id)=>props.setIdAssentos(id)}
+                    numAssentos={numAssentos} 
+                    setNumAssentos={(num) => props.setNumAssentos(num)}
                 />)}
             </SeatsContainer>
 

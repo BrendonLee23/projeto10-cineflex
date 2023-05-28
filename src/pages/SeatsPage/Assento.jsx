@@ -16,9 +16,10 @@ export default function Assento(props) {
         } else {
             setCor("#1AAE9E");
             setBorda("#0E7D71");
-            
         }
     }
+
+
 
     return (
         <>
@@ -27,7 +28,7 @@ export default function Assento(props) {
                     <SeatItemDisable>{props.numero}</SeatItemDisable>
                     :
                     props.vaga === true ?
-                        <SeatItemAvaliable borda={borda} cor={cor} onClick={() => {props.setIdAssentos(props.id); selecionarAssento()}} >{props.numero}</SeatItemAvaliable>
+                        <SeatItemAvaliable borda={borda} cor={cor} onClick={() => {props.setIdAssentos(props.id); props.setNumAssentos(props.numero); selecionarAssento()}} >{props.numero}</SeatItemAvaliable>
                         : ""
             }
         </>

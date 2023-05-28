@@ -4,10 +4,12 @@ import styled from "styled-components"
 
 export default function Sessao(props) {
 
+
+
     return (
         <>
             <SessionContainer>
-                {props.diaSemana} - {props.data}
+                {props.diaSemana} - {props.date}
                 <ButtonsContainer>
                     {props.horario.map((hora) => <Link key={hora.id} to={`/assentos/${hora.id}`} >
                             <button>{hora.name}</button>

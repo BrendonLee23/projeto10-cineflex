@@ -1,9 +1,11 @@
 import { Link, useLocation } from "react-router-dom"
 import styled from "styled-components"
 
-export default function SuccessPage() {
+export default function SuccessPage(props) {
 
+    const {numAssentos} = props
     const info = useLocation().state;
+    console.log(info)
 
     return (
         <PageContainer>
@@ -11,21 +13,24 @@ export default function SuccessPage() {
 
             <TextContainer>
                 <strong><p>Filme e sessão</p></strong>
-                <p>Tudo em todo lugar ao mesmo tempo</p>
-                <p>03/03/2023 - 14:00</p>
+                {/* renderiza o nome do filme  */}
+                <p>{props.filme}</p>      
+                {/* renderiza a data e hora do filme */}
+                <p>{props.data} - {props.hora}</p>        
             </TextContainer>
 
             <TextContainer>
                 <strong><p>Ingressos</p></strong>
-                <p>Assento 01</p>
-                <p>Assento 02</p>
-                <p>Assento 03</p>
+                {/* renderiza os assentos selesionados */}
+                {numAssentos.map((assento) => <p key={assento.length}>Assento: {assento}</p> )}
             </TextContainer>
 
             <TextContainer>
                 <strong><p>Comprador</p></strong>
-                <p>Nome: Letícia Chijo</p>
-                <p>{info}</p>
+                {/* renderiza o nome do comprador */}
+                <p>Nome: {info.nome}</p>
+                {/* renderiza o cpf do comprador */}
+                <p>CPF: {info.cpf}</p>
             </TextContainer>
 
             <Link to="/">
