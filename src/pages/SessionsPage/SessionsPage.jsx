@@ -26,7 +26,8 @@ export default function SessionsPage(props) {
         promise.catch((erro) => {
             console.log(erro.response.data);
         });
-    }, [parametros.idFilme])
+    }, [filme, parametros.idFilme, setFilme])
+
 
     return (
         <PageContainer>

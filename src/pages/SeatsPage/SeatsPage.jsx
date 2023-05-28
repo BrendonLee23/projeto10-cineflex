@@ -37,7 +37,7 @@ export default function SeatsPage(props) {
         promise.catch((erro) => {
             console.log(erro.response.data);
         });
-    }, [parametros.idSessao]);
+    }, [data, hora, parametros.idSessao, setData, setHora]);
 
 
     function finalizarCompra(event) {
