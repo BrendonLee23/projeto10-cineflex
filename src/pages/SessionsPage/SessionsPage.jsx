@@ -46,7 +46,7 @@ export default function SessionsPage(props) {
                     setHora={setHora}
                 />)}
             </>
-            <FooterContainer>
+            <FooterContainer data-test="footer" >
                 <div>
                     <img src={sessao?.posterURL} alt="poster" />
                 </div>

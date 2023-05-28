@@ -25,10 +25,10 @@ export default function Assento(props) {
         <>
             {
                 props.vaga === false ?
-                    <SeatItemDisable>{props.numero}</SeatItemDisable>
+                    <SeatItemDisable data-test="seat">{props.numero}</SeatItemDisable>
                     :
                     props.vaga === true ?
-                        <SeatItemAvaliable borda={borda} cor={cor} onClick={() => {props.setIdAssentos(props.id); props.setNumAssentos(props.numero); selecionarAssento()}} >{props.numero}</SeatItemAvaliable>
+                        <SeatItemAvaliable data-test="seat" borda={borda} cor={cor} onClick={() => {props.setIdAssentos(props.id); props.setNumAssentos(props.numero); selecionarAssento()}} >{props.numero}</SeatItemAvaliable>
                         : ""
             }
         </>

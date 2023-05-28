@@ -7,7 +7,7 @@ export default function Poster(props) {
 
     return (
         <>
-            <MovieContainer>
+            <MovieContainer data-test="movie">
                 <Link to={`/sessoes/${props.id}`}>
                     <img src={props.imagem} alt="poster" />
                 </Link>
