@@ -11,7 +11,7 @@ export default function SuccessPage(props) {
 
     return (<>
         <NavContainer>
-            <Link to={`/assentos/${idFinal}`} >
+            <Link data-test="go-home-header-btn" to={`/assentos/${idFinal}`} >
                 <button>
                     <img src={img} alt="seta-voltar" />
                 </button>

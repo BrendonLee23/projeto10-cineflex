@@ -37,7 +37,7 @@ export default function SessionsPage(props) {
     return (
         <>
             <NavContainer>
-                <Link to="/" onClick={() => {
+                <Link data-test="go-home-header-btn" to="/" onClick={() => {
                     // Limpeza de dados
                     setData(null);
                     setHora(null);

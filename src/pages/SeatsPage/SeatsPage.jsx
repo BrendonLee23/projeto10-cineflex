@@ -62,7 +62,7 @@ export default function SeatsPage(props) {
     return (
     <>
         <NavContainer>
-            <Link to={`/sessoes/${idFinal2}`}>
+            <Link data-test="go-home-header-btn" to={`/sessoes/${idFinal2}`}>
                 <button>
                     <img src={img} alt="seta-voltar" />
                 </button>
