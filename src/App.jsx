@@ -1,4 +1,4 @@
-import styled from "styled-components"
+// import styled from "styled-components"
 import axios from "axios"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomePage from "./pages/HomePage/HomePage"
@@ -6,6 +6,8 @@ import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
 import { useState } from "react"
+
+
 
 export default function App() {
 
@@ -15,6 +17,8 @@ export default function App() {
     const [data, setData] = useState('')
     const [hora, setHora] = useState('')
     const [filme, setFilme] = useState('')
+    const [idFinal, setIdFinal] = useState('')
+    const [idFinal2, setIdFinal2] = useState('')
 
     function atualizarAssentos(novoId) {
         const newArray = []
@@ -53,31 +57,39 @@ export default function App() {
 
     return (
         <BrowserRouter>
-            <NavContainer>CINEFLEX</NavContainer>
+            {/* <NavContainer>
+            <Link>
+                <img src={img} alt="seta-voltar" />
+            </Link>
+                <h1>CINEFLEX</h1>
+            </NavContainer> */}
             <Routes>
                 <Route path='/' element={<HomePage />} />
-                <Route path='/sessoes/:idFilme' element={<SessionsPage filme={filme} setFilme={setFilme} />} />
-                <Route path='/assentos/:idSessao' element={<SeatsPage data={data} setData={setData} hora={hora} setHora={setHora} numAssentos={numAssentos} setNumAssentos={(num) => atualizarNumAssentos(num)} idAssentos={idAssentos} setIdAssentos={(id) => atualizarAssentos(id)} />} />
-                <Route path='/sucesso' element={<SuccessPage filme={filme} data={data} hora={hora} numAssentos={numAssentos} />} />
+                <Route path='/sessoes/:idFilme' element={<SessionsPage idFinal2={idFinal2} setIdFinal2={setIdFinal2} filme={filme} setFilme={setFilme} />} />
+                <Route path='/assentos/:idSessao' element={<SeatsPage idFinal2={idFinal2} setIdFinal2={setIdFinal2} idFinal={idFinal} setIdFinal={setIdFinal} data={data} setData={setData} hora={hora} setHora={setHora} numAssentos={numAssentos} setNumAssentos={(num) => atualizarNumAssentos(num)} idAssentos={idAssentos} setIdAssentos={(id) => atualizarAssentos(id)} />} />
+                <Route path='/sucesso' element={<SuccessPage idFinal={idFinal} setIdFinal={setIdFinal} filme={filme} data={data} hora={hora} numAssentos={numAssentos} />} />
             </Routes>
         </BrowserRouter>
     )
 }
 
-const NavContainer = styled.div`
-    width: 100%;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #C3CFD9;
-    color: #E8833A;
-    font-family: 'Roboto', sans-serif;
-    font-size: 34px;
-    position: fixed;
-    top: 0;
-    a {
-        text-decoration: none;
-        color: #E8833A;
-    }
-`
+// const NavContainer = styled.div`
+//     width: 100%;
+//     height: 70px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-around;
+//     background-color: #C3CFD9;
+//     color: #E8833A;
+//     position: fixed;
+//     top: 0;
+//     img{
+//         cursor: pointer;
+//     }
+//     h1{
+//         font-family: 'Roboto', sans-serif;
+//         font-size: 34px;
+//         margin-right: 95px;
+//         text-decoration: none;
+//     }
+// `

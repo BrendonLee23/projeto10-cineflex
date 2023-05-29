@@ -1,28 +1,38 @@
 import { Link, useLocation } from "react-router-dom"
 import styled from "styled-components"
+import img from "../../imagens/seta.png"
 
 export default function SuccessPage(props) {
 
-    const {numAssentos} = props
+    const {idFinal} = props
+    const { numAssentos } = props
     const info = useLocation().state;
     console.log(info)
 
-    return (
+    return (<>
+        <NavContainer>
+            <Link to={`/assentos/${idFinal}`} >
+                <button>
+                    <img src={img} alt="seta-voltar" />
+                </button>
+            </Link>
+            <h1>CINEFLEX</h1>
+        </NavContainer>
         <PageContainer>
             <h1>Pedido feito <br /> com sucesso!</h1>
 
             <TextContainer data-test="movie-info" >
                 <strong><p>Filme e sessão</p></strong>
                 {/* renderiza o nome do filme  */}
-                <p>{props.filme}</p>      
+                <p>{props.filme}</p>
                 {/* renderiza a data e hora do filme */}
-                <p>{props.data} - {props.hora}</p>        
+                <p>{props.data} - {props.hora}</p>
             </TextContainer>
 
             <TextContainer data-test="seats-info" >
                 <strong><p>Ingressos</p></strong>
                 {/* renderiza os assentos selesionados */}
-                {numAssentos.map((assento) => <p key={assento.length}>Assento: {assento}</p> )}
+                {numAssentos.map((assento) => <p key={assento.length}>Assento: {assento}</p>)}
             </TextContainer>
 
             <TextContainer data-test="client-info" >
@@ -38,8 +48,10 @@ export default function SuccessPage(props) {
             </Link>
 
         </PageContainer>
+    </>
     )
 }
+
 
 const PageContainer = styled.div`
     display: flex;
@@ -78,5 +90,32 @@ const TextContainer = styled.div`
     strong {
         font-weight: bold;
         margin-bottom: 10px;
+    }
+    button{
+        cursor: pointer;
+    }
+`
+const NavContainer = styled.div`
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #C3CFD9;
+
+    position: fixed;
+    top: 0;
+    button{
+        background-color: #C3CFD9;;
+    }
+    img{
+        cursor: pointer;
+    }
+    h1{
+        font-family: 'Roboto', sans-serif;
+        font-size: 34px;
+        margin-right: 95px;
+        text-decoration: none;
+        color: #E8833A;
     }
 `

@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import Assento from "./Assento";
+import img from "../../imagens/seta.png"
 // import { useLocation } from "react-router-dom";
 
 export default function SeatsPage(props) {
 
-    
-    const { idAssentos, numAssentos, hora, setHora, data, setData } = props
+
+    const { idAssentos, numAssentos, hora, setHora, data, setData, idFinal, setIdFinal, idFinal2 } = props
     const navigate = useNavigate();
     // const location = useLocation();
     const parametros = useParams();
@@ -22,9 +23,9 @@ export default function SeatsPage(props) {
         const promise = axios.get(URL);
         promise.then((resposta) => {
             setAssento(resposta.data);
-            console.log(resposta.data.day.date)
+            console.log(resposta.data)
 
-            const novaData =  [...data]
+            const novaData = [...data]
             novaData.push(resposta.data.day.date)
             setData(novaData)
             console.log(novaData)
@@ -33,16 +34,18 @@ export default function SeatsPage(props) {
             novaHora.push(resposta.data.name)
             setHora(novaHora)
             console.log(novaHora)
+
+            const novoIdFinal = [...idFinal, resposta.data.id]
+            setIdFinal(novoIdFinal)
         });
         promise.catch((erro) => {
             console.log(erro.response.data);
         });
     }, [parametros.idSessao]);
 
-
     function finalizarCompra(event) {
         event.preventDefault();
-        
+
         const infos = {
             ids: idAssentos,
             name: nome,
@@ -52,11 +55,20 @@ export default function SeatsPage(props) {
         const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', infos);
         promise.then(ans => { console.log('O POST DEU CERTO', ans); });
         promise.catch(erro => console.log('O POST DEU ERRO', erro));
-        navigate("/sucesso",{state: infos} );
+        navigate("/sucesso", { state: infos});
     }
 
 
     return (
+    <>
+        <NavContainer>
+            <Link to={`/sessoes/${idFinal2}`}>
+                <button>
+                    <img src={img} alt="seta-voltar" />
+                </button>
+            </Link>
+            <h1>CINEFLEX</h1>
+        </NavContainer>
         <PageContainer>
             Selecione o(s) assento(s)
             <SeatsContainer>
@@ -65,10 +77,10 @@ export default function SeatsPage(props) {
                     key={cadeira.id}
                     numero={cadeira.name}
                     vaga={cadeira.isAvailable}
-                    id={cadeira.id} 
-                    idAssentos={idAssentos} 
-                    setIdAssentos={(id)=>props.setIdAssentos(id)}
-                    numAssentos={numAssentos} 
+                    id={cadeira.id}
+                    idAssentos={idAssentos}
+                    setIdAssentos={(id) => props.setIdAssentos(id)}
+                    numAssentos={numAssentos}
                     setNumAssentos={(num) => props.setNumAssentos(num)}
                 />)}
             </SeatsContainer>
@@ -90,7 +102,7 @@ export default function SeatsPage(props) {
 
             <FormContainer onSubmit={finalizarCompra} >
                 <label htmlFor="name" >Nome do Comprador:</label>
-                <input data-test="client-name" value={nome} onChange={(e) => setNome(e.target.value) } required id="name" placeholder="Digite seu nome..." />
+                <input data-test="client-name" value={nome} onChange={(e) => setNome(e.target.value)} required id="name" placeholder="Digite seu nome..." />
 
 
                 <label htmlFor="cpf" >CPF do Comprador:</label>
@@ -112,6 +124,7 @@ export default function SeatsPage(props) {
             </FooterContainer>
 
         </PageContainer>
+    </>
     )
 }
 
@@ -246,5 +259,29 @@ const FooterContainer = styled.div`
                 margin-top: 10px;
             }
         }
+    }
+`
+const NavContainer = styled.div`
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #C3CFD9;
+
+    position: fixed;
+    top: 0;
+    button{
+        background-color: #C3CFD9;;
+    }
+    img{
+        cursor: pointer;
+    }
+    h1{
+        font-family: 'Roboto', sans-serif;
+        font-size: 34px;
+        margin-right: 95px;
+        text-decoration: none;
+        color: #E8833A;
     }
 `

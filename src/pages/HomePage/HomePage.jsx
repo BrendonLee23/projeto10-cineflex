@@ -1,7 +1,9 @@
 import styled from "styled-components"
 import axios from "axios";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Poster from "./Poster";
+// import { Link } from "react-router-dom";
+// import img from "../../imagens/seta.png"
 
 export default function HomePage() {
 
@@ -23,22 +25,28 @@ export default function HomePage() {
             console.log(erro.response.data);
         });
 
-    }, [] )
-    
+    }, [])
+
 
     if (poster.length === 0) {
         return (<div> Carregando..... </div>);
     }
 
     return (
-        <PageContainer>
-            Selecione o filme
-
-            <ListContainer>
-                {poster.map((p) => <Poster key={p.id} poster={poster} nome={p.title} imagem={p.posterURL} id={p.id} />)}
-            </ListContainer>
-
-        </PageContainer>
+        <>
+            <NavContainer>
+                {/* <Link>
+                    <img src={img} alt="seta-voltar" />
+                </Link> */}
+                <h1>CINEFLEX</h1>
+            </NavContainer>
+            <PageContainer>
+                Selecione o filme
+                <ListContainer>
+                    {poster.map((p) => <Poster key={p.id} poster={poster} nome={p.title} imagem={p.posterURL} id={p.id} />)}
+                </ListContainer>
+            </PageContainer>
+        </>
     )
 }
 
@@ -59,4 +67,24 @@ const ListContainer = styled.div`
     flex-wrap: wrap;
     flex-direction: row;
     padding: 10px;
+`
+const NavContainer = styled.div`
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #C3CFD9;
+    color: #E8833A;
+    position: fixed;
+    top: 0;
+    img{
+        cursor: pointer;
+    }
+    h1{
+        font-family: 'Roboto', sans-serif;
+        font-size: 34px;
+        margin-right: 20px;
+        text-decoration: none;
+    }
 `
